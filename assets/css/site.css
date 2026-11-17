@@ -1,0 +1,183 @@
+/* Palette tirée du câblage RJ45 T568B */
+:root {
+  --paper: #EEF1F3;
+  --panel: #FFFFFF;
+  --ink: #17202B;
+  --muted: #55606E;
+  --line: #CDD4DB;
+  --orange: #D9661F;
+  --green: #2F8A4E;
+  --blue: #2457A6;
+  --brown: #7B4B2A;
+  --accent: var(--blue);
+  --max: 1120px;
+  --display: "Archivo", "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 2px; }
+img { max-width: 100%; height: auto; display: block; }
+
+.skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 8px 14px; z-index: 10; }
+.skip:focus { left: 8px; }
+
+/* En-tête */
+.top {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 14px max(20px, calc((100% - var(--max)) / 2));
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.brand { font: 700 1.05rem/1 var(--display); font-stretch: 112%; text-decoration: none; }
+.top nav { display: flex; gap: 28px; }
+.top nav a { text-decoration: none; color: var(--muted); font-weight: 500; font-size: .98rem; }
+.top nav a:hover { color: var(--ink); }
+.menu-btn { display: none; }
+
+/* Hero */
+.hero {
+  max-width: var(--max); margin: 0 auto;
+  padding: 72px 20px 88px;
+  display: grid; grid-template-columns: 1.25fr .75fr; gap: 64px; align-items: end;
+}
+.where { margin: 0 0 18px; color: var(--muted); font-weight: 500; }
+.hero h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 800; font-stretch: 125%;
+  font-size: clamp(3.4rem, 9.5vw, 7.6rem);
+  line-height: .9; letter-spacing: -.02em;
+}
+.role { margin: 22px 0 0; font: 600 1.35rem/1.3 var(--display); font-stretch: 100%; }
+.intro { max-width: 34em; margin: 18px 0 0; color: var(--muted); font-size: 1.12rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.btn {
+  display: inline-block; padding: 12px 20px;
+  border: 1.5px solid var(--ink); border-radius: 4px;
+  text-decoration: none; font-weight: 600;
+}
+.btn:hover { background: var(--panel); }
+.btn.primary { background: var(--ink); color: #fff; }
+.btn.primary:hover { background: var(--blue); border-color: var(--blue); }
+
+.portrait { margin: 0; display: grid; grid-template-columns: 1fr 22px; gap: 10px; }
+.portrait img { width: 100%; height: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; border-radius: 4px; }
+
+/* Le câble : 8 brins dans l'ordre T568B */
+.wire { display: grid; gap: 3px; }
+.portrait .wire { grid-template-rows: repeat(8, 1fr); }
+.wire i { display: block; border-radius: 2px; background: var(--c); }
+.wire i:nth-child(odd) { background: repeating-linear-gradient(135deg, #fff 0 5px, var(--c) 5px 10px); }
+.wire i:nth-child(1), .wire i:nth-child(2) { --c: var(--orange); }
+.wire i:nth-child(3), .wire i:nth-child(6) { --c: var(--green); }
+.wire i:nth-child(4), .wire i:nth-child(5) { --c: var(--blue); }
+.wire i:nth-child(7), .wire i:nth-child(8) { --c: var(--brown); }
+.wire i:nth-child(5) { background: repeating-linear-gradient(135deg, #fff 0 5px, var(--blue) 5px 10px); }
+.wire i:nth-child(6) { background: var(--green); }
+
+/* Sections */
+.block {
+  max-width: var(--max); margin: 0 auto;
+  padding: 72px 20px;
+  display: grid; grid-template-columns: 220px 1fr; gap: 0 40px;
+  border-top: 1px solid var(--line);
+}
+.block > h2 {
+  margin: 0; font: 700 1.9rem/1.1 var(--display); font-stretch: 110%;
+  padding-left: 16px; border-left: 6px solid var(--accent);
+  align-self: start; position: sticky; top: 96px;
+}
+.block > :not(h2) { grid-column: 2; }
+.c-orange { --accent: var(--orange); }
+.c-green { --accent: var(--green); }
+.c-blue { --accent: var(--blue); }
+.c-brown { --accent: var(--brown); }
+
+h3 { margin: 0; font: 650 1.2rem/1.3 var(--display); font-stretch: 100%; }
+h3 span { display: block; margin-top: 2px; font: 500 1rem/1.4 var(--body); color: var(--accent); }
+
+/* Chronologie */
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline > li { position: relative; padding: 0 0 36px 28px; border-left: 2px solid var(--line); }
+.timeline > li:last-child { padding-bottom: 0; }
+.timeline > li::before {
+  content: ""; position: absolute; left: -7px; top: 6px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--paper); border: 2px solid var(--accent);
+}
+.when { margin: 0 0 4px; font-size: .92rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.timeline ul { margin: 12px 0 0; padding-left: 1.1em; max-width: 60ch; }
+.timeline ul li { margin: 4px 0; }
+.timeline > li > p:not(.when) { margin: 8px 0 0; color: var(--muted); }
+
+/* Compétences */
+.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 48px; }
+.skills h3 { padding-bottom: 8px; margin-bottom: 8px; border-bottom: 2px solid var(--accent); }
+.skills p { margin: 0; color: var(--muted); max-width: 40ch; }
+
+/* Projets */
+.projects { list-style: none; margin: 0; padding: 0; }
+.projects li { padding: 24px 0; border-bottom: 1px solid var(--line); }
+.projects li:first-child { padding-top: 0; }
+.projects h3 a { text-decoration: none; background: linear-gradient(var(--accent), var(--accent)) 0 100% / 100% 2px no-repeat; }
+.projects h3 a:hover { color: var(--accent); }
+.projects p { margin: 8px 0 0; max-width: 62ch; color: var(--muted); }
+.projects .tags { color: var(--accent); font-weight: 500; font-size: .95rem; }
+
+.sub { margin-top: 40px; }
+.plain { margin: 12px 0 0; padding-left: 1.1em; color: var(--muted); }
+.plain li { margin: 4px 0; }
+
+/* Contact */
+.contact {
+  background: var(--ink); color: #fff;
+  padding: 88px max(20px, calc((100% - var(--max)) / 2));
+}
+.contact h2 { margin: 0; font: 800 clamp(2.4rem, 6vw, 4.4rem)/1 var(--display); font-stretch: 125%; letter-spacing: -.01em; }
+.contact > p { max-width: 40em; margin: 18px 0 0; color: #C4CCD6; font-size: 1.12rem; }
+.links { list-style: none; padding: 0; margin: 36px 0 0; display: flex; flex-wrap: wrap; gap: 12px 32px; }
+.links a { font-size: 1.15rem; font-weight: 600; text-underline-offset: 6px; text-decoration-thickness: 2px; text-decoration-color: var(--orange); }
+.links a:hover { color: #FFC59E; }
+.contact a:focus-visible { outline-color: #fff; }
+
+.foot { padding: 0 0 28px; }
+.foot .wire { grid-template-columns: repeat(8, 1fr); height: 10px; gap: 0; }
+.foot .wire i { border-radius: 0; }
+.foot p { max-width: var(--max); margin: 20px auto 0; padding: 0 20px; color: var(--muted); font-size: .92rem; }
+
+/* Mobile */
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 40px; padding-bottom: 56px; }
+  .portrait { max-width: 360px; order: -1; }
+  .block { grid-template-columns: 1fr; gap: 0; padding: 56px 20px; }
+  .block > h2 { margin-bottom: 28px; }
+  .block > h2 { position: static; }
+  .block > :not(h2) { grid-column: 1; }
+  .skills { grid-template-columns: 1fr; gap: 28px; }
+
+  .menu-btn {
+    display: block; background: none; border: 1.5px solid var(--ink); border-radius: 4px;
+    padding: 6px 12px; font: 600 .95rem var(--body); color: var(--ink); cursor: pointer;
+  }
+  .top nav {
+    display: none; position: absolute; left: 0; right: 0; top: 100%;
+    flex-direction: column; gap: 0; background: var(--paper); border-bottom: 1px solid var(--line);
+  }
+  .top nav.open { display: flex; }
+  .top nav a { padding: 14px 20px; border-top: 1px solid var(--line); }
+}
